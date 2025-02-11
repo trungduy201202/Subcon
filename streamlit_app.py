@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
+from io import BytesIO
 
 # Danh sách các loại sản xuất với file CSV chung
 production_type_files = {
@@ -80,6 +81,44 @@ def render_upper(file_path, selected_category):
 
     # Hiển thị tiêu đề
     st.markdown(f"<h1 style='text-align: center;'>📌 {selected_category} - Subcon Tracking</h1>", unsafe_allow_html=True)
+
+
+    with st.form("export_form"):
+        export_year = st.selectbox("📅 Select Year for Export", ["All"] + sorted(df_csv["YEAR"].unique().astype(str)))
+        export_week = st.selectbox("📅 Select Week for Export", ["All"] + sorted(df_csv["WEEK"].unique().astype(str)))
+        submitted = st.form_submit_button("Generate Excel")
+
+    if submitted:
+        # Lọc dữ liệu theo năm và tuần đã chọn
+        df_export = df_csv.copy()
+        if export_year != "All":
+            df_export = df_export[df_export["YEAR"] == int(export_year)]
+        if export_week != "All":
+            df_export = df_export[df_export["WEEK"] == int(export_week)]
+        if selected_subcon != "All":
+            df_export = df_export[df_export["SUBCON"] == selected_subcon]
+
+        # Kiểm tra nếu không có dữ liệu
+        if df_export.empty:
+            st.warning("⚠️ No data available for the selected filters.")
+        else:
+            # Tạo file Excel từ dữ liệu đã lọc
+            def convert_to_excel(dataframe):
+                output = BytesIO()
+                with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                    dataframe.to_excel(writer, index=False, sheet_name='Filtered Data')
+                    writer.close()
+                return output.getvalue()
+
+            excel_data = convert_to_excel(df_export)
+
+            # Nút tải xuống file Excel
+            st.download_button(
+                label="📥 Download Filtered Excel",
+                data=excel_data,
+                file_name=f"{selected_subcon}_Year{export_year}_Week{export_week}.xlsx",
+                mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            )
 
     # --- 1️⃣ Monthly Defect Trend ---
     st.subheader("1️⃣ Monthly Defect Trend")
@@ -508,6 +547,45 @@ def render_bottom(file_path, selected_category):
 
     # Hiển thị tiêu đề
     st.markdown(f"<h1 style='text-align: center;'>📌 {selected_category} - Subcon Tracking</h1>", unsafe_allow_html=True)
+
+
+    with st.form("export_form"):
+        export_year = st.selectbox("📅 Select Year for Export", ["All"] + sorted(df_csv["Year"].unique().astype(str)))
+        export_week = st.selectbox("📅 Select Week for Export", ["All"] + sorted(df_csv["Weekly"].unique().astype(str)))
+        submitted = st.form_submit_button("Generate Excel")
+
+    if submitted:
+        # Lọc dữ liệu theo năm và tuần đã chọn
+        df_export = df_csv.copy()
+        if export_year != "All":
+            df_export = df_export[df_export["Year"] == int(export_year)]
+        if export_week != "All":
+            df_export = df_export[df_export["Weekly"] == int(export_week)]
+        if selected_subcon != "All":
+            df_export = df_export[df_export["Supplier"] == selected_subcon]
+
+        # Kiểm tra nếu không có dữ liệu
+        if df_export.empty:
+            st.warning("⚠️ No data available for the selected filters.")
+        else:
+            # Tạo file Excel từ dữ liệu đã lọc
+            def convert_to_excel(dataframe):
+                output = BytesIO()
+                with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                    dataframe.to_excel(writer, index=False, sheet_name='Filtered Data')
+                    writer.close()
+                return output.getvalue()
+
+            excel_data = convert_to_excel(df_export)
+
+            # Nút tải xuống file Excel
+            st.download_button(
+                label="📥 Download Filtered Excel",
+                data=excel_data,
+                file_name=f"{selected_subcon}_Year{export_year}_Week{export_week}.xlsx",
+                mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            )
+
 
     # --- 1️⃣ Monthly Trend ---
     st.subheader("1️⃣ Monthly Trend")
@@ -1030,6 +1108,44 @@ def render_osc(file_path, selected_category):
 
     # Hiển thị tiêu đề
     st.markdown(f"<h1 style='text-align: center;'>📌 {selected_category} - Subcon Tracking</h1>", unsafe_allow_html=True)
+
+    with st.form("export_form"):
+        export_year = st.selectbox("📅 Select Year for Export", ["All"] + sorted(df_csv["Year"].unique().astype(str)))
+        export_week = st.selectbox("📅 Select Week for Export", ["All"] + sorted(df_csv["Week"].unique().astype(str)))
+        submitted = st.form_submit_button("Generate Excel")
+
+    if submitted:
+        # Lọc dữ liệu theo năm và tuần đã chọn
+        df_export = df_csv.copy()
+        if export_year != "All":
+            df_export = df_export[df_export["Year"] == int(export_year)]
+        if export_week != "All":
+            df_export = df_export[df_export["Week"] == int(export_week)]
+        if selected_subcon != "All":
+            df_export = df_export[df_export["Supplier"] == selected_subcon]
+
+        # Kiểm tra nếu không có dữ liệu
+        if df_export.empty:
+            st.warning("⚠️ No data available for the selected filters.")
+        else:
+            # Tạo file Excel từ dữ liệu đã lọc
+            def convert_to_excel(dataframe):
+                output = BytesIO()
+                with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                    dataframe.to_excel(writer, index=False, sheet_name='Filtered Data')
+                    writer.close()
+                return output.getvalue()
+
+            excel_data = convert_to_excel(df_export)
+
+            # Nút tải xuống file Excel
+            st.download_button(
+                label="📥 Download Filtered Excel",
+                data=excel_data,
+                file_name=f"{selected_subcon}_Year{export_year}_Week{export_week}.xlsx",
+                mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            )
+
 
     # --- 1️⃣ Monthly Trend ---
     st.subheader("1️⃣ Monthly Defect Trend")
