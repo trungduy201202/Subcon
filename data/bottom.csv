@@ -1,4 +1,4 @@
-﻿Year,Month,Weekly,Date,Fac.,Model,PGSC,Supplier,Part group,Stock Qty,Input Q'ty,Target of Input Qty,Inspection Qty,Pass Qty,Reject Qty,Return Qty,Percent,Return %,Result,Air Bubble,Big/ small,Bonding gap,Blk point,Burn,"Color 
+﻿Year,Month,Week,Date,Fac.,Model,PGSC,Supplier,Part group,Stock Qty,Input Qty,Target of Input Qty,Inspection Qty,Pass Qty,Reject Qty,Return Qty,Percent,Return %,Result,Air Bubble,Big/ small,Bonding gap,Blk point,Burn,"Color 
 Migration",C-Grade ,Crooked toe,Damaged,Deform,"Different 
 color",Dirty,Long\ Short,Long ,Short,Missing Painting,Mold,Over Cement,Over painting,Over Primer,"Over
 trimming",Uneven color,"Peel Off
