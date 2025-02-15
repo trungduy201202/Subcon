@@ -48,7 +48,7 @@ with cols[0]:  # Cột bên trái hiển thị bảng số liệu
         
         st.markdown(f"""
             <div style='background-color: #f8f9fa; border: 1px solid #d1d8e0; border-radius: 10px; padding: 15px; margin-bottom: 15px; text-align: center; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);'>
-                <h5 style='color: #4b6584; font-size: 24px; margin-bottom: 10px;'>{category}</h5>
+                <h5 style='color: #4b6584; font-size: 24px; margin-bottom: 10px; margin-left: 20px'>{category}</h5>
                 <div style='display: flex; justify-content: space-around;'>
                     <div>
                         <strong style='font-size: 20px; color: #4b6584;'>{input_qty}</strong>

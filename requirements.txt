@@ -1,2 +1,5 @@
 streamlit
 xlsxwriter
+plotly
+pandas
+numpy
